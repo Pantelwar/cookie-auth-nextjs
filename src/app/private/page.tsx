@@ -1,4 +1,5 @@
 'use client';
+import { AuthGuard } from '@/components/auth-guard';
 import { useAuth } from '@/hooks/auth';
 import { useRouter } from 'next/navigation';
 
@@ -7,12 +8,13 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div>
+    <AuthGuard>
+      <h1>this is a private page</h1>
       <button
         onClick={isAuthenticated ? logout : () => router.replace('/login')}
       >
         {isAuthenticated ? 'logout' : 'login'}
       </button>
-    </div>
+    </AuthGuard>
   );
 }
