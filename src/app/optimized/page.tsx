@@ -1,5 +1,5 @@
 'use client';
-import { useQueryState } from '@/hooks/query-state';
+import { useQueryState } from '@/hooks/query-state-optimized';
 import { api } from '@/store';
 import { GetPostsRequest, Sort } from '@/types/posts';
 
@@ -7,14 +7,14 @@ export default function Home() {
   // const { isAuthenticated, logout } = useAuth();
   // const router = useRouter();
 
-  const [filters, setFilters, checked] = useQueryState<GetPostsRequest>({
+  const [filters, setFilters] = useQueryState<GetPostsRequest>({
     _limit: '10',
     _page: '1',
     _sort: Sort.TITLE,
     _order: 'asc',
   });
 
-  const { data } = api.usePostsQuery(filters, { skip: !checked });
+  const { data } = api.usePostsQuery(filters);
 
   console.log(data);
 
